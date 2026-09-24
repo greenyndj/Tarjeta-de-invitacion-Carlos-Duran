@@ -1,30 +1,10 @@
 // ==========================================
-// INVITACIÓN DE GRADO - VERSIÓN 1
-// Carlos Andrés Durán Torres
+// INVITACIÓN DE GRADO - VERSIÓN DINÁMICA
+// Conectada a CSV local en GitHub
 // ==========================================
 
-// Datos temporales.
-// Más adelante estos datos serán reemplazados
-// automáticamente por los datos provenientes
-// del Excel.
-const invitados = {
-  "GRD001": {
-    nombre: "María López",
-    cupos: 2
-  },
-  "GRD002": {
-    nombre: "Juan Pérez",
-    cupos: 1
-  },
-  "GRD003": {
-    nombre: "Familia González",
-    cupos: 4
-  },
-  "GRD004": {
-    nombre: "Andrés Martínez",
-    cupos: 2
-  }
-};
+// Ruta del archivo CSV alojado en el mismo repositorio
+const csvPath = "invitados.csv";
 
 const cover = document.getElementById("cover");
 const invitation = document.getElementById("invitation");
@@ -34,25 +14,69 @@ const guestName = document.getElementById("guestName");
 const guestSeats = document.getElementById("guestSeats");
 const whatsappButton = document.getElementById("whatsappButton");
 
-// Obtener el código desde la URL.
-// Ejemplo:
-// index.html?codigo=GRD001
+// Obtener el código desde la URL (Ej: ?codigo=GRD001)
 const params = new URLSearchParams(window.location.search);
 const codigo = params.get("codigo");
 
-// Buscar invitado
-const invitado = codigo ? invitados[codigo.toUpperCase()] : invitados["GRD001"];
+// Cambiar estado del botón mientras carga la base de datos
+openButton.style.opacity = "0.6";
+openButton.style.pointerEvents = "none";
 
-// Mostrar los datos personalizados
-if (invitado) {
-  guestName.textContent = invitado.nombre;
-  guestSeats.textContent = invitado.cupos;
-} else {
+async function cargarBaseDeDatos() {
+  if (!codigo) {
+    mostrarError();
+    return;
+  }
+
+  // Descargar y leer el CSV local usando PapaParse
+  Papa.parse(csvPath, {
+    download: true,
+    header: true, // Usa la primera fila como nombres de columna
+    complete: function(results) {
+      const invitados = results.data;
+      
+      // Buscar el invitado que coincida con el código de la URL
+      const invitadoEncontrado = invitados.find(
+        fila => fila.Codigo && fila.Codigo.toUpperCase() === codigo.toUpperCase()
+      );
+
+      if (invitadoEncontrado) {
+        configurarInvitacion(invitadoEncontrado);
+      } else {
+        mostrarError();
+      }
+    },
+    error: function(err) {
+      console.error("Error al cargar la base de datos:", err);
+      mostrarError();
+    }
+  });
+}
+
+function configurarInvitacion(invitado) {
+  // Rellenar los datos en el HTML
+  guestName.textContent = invitado.Nombre;
+  guestSeats.textContent = invitado.Cupos;
+
+  // Preparar el mensaje de WhatsApp automático
+  const numeroWhatsApp = "573184374039";
+  const mensaje = encodeURIComponent(
+    `Hola Carlos, soy ${invitado.Nombre}. Confirmo mi asistencia a tu celebración de grado. Tengo ${invitado.Cupos} cupo(s) reservado(s). 🎓`
+  );
+  whatsappButton.href = `https://wa.me/${numeroWhatsApp}?text=${mensaje}`;
+
+  // Habilitar el botón de la portada para que puedan entrar
+  openButton.style.opacity = "1";
+  openButton.style.pointerEvents = "auto";
+  openButton.querySelector("span").textContent = "ABRIR INVITACIÓN";
+}
+
+function mostrarError() {
   cover.classList.add("hidden");
   errorScreen.classList.remove("hidden");
 }
 
-// Abrir invitación
+// Evento para abrir la invitación
 openButton.addEventListener("click", () => {
   cover.classList.add("hidden");
   invitation.classList.remove("hidden");
@@ -63,13 +87,5 @@ openButton.addEventListener("click", () => {
   });
 });
 
-// Preparar mensaje de WhatsApp
-const numeroWhatsApp = "573184374039";
-
-const mensaje = encodeURIComponent(
-  `Hola Carlos, soy ${invitado ? invitado.nombre : "tu invitado"}. ` +
-  `Confirmo mi asistencia a tu celebración de grado. ` +
-  `Tengo ${invitado ? invitado.cupos : 1} cupo(s) reservado(s). 🎓`
-);
-
-whatsappButton.href = `https://wa.me/${numeroWhatsApp}?text=${mensaje}`;
+// Iniciar el proceso al cargar la página
+cargarBaseDeDatos();
