@@ -34,10 +34,23 @@
         de una nueva etapa.
       </p>
 
-      <button id="openInvitation" class="gold-button">
-        <span>CARGANDO INVITADO...</span>
-        <span class="arrow">↓</span>
-      </button>
+      <!-- INICIO ZONA DE INGRESO -->
+      <div id="actionContainer">
+        <!-- Botón para abrir (Oculto por defecto hasta que se verifique el código) -->
+        <button id="openInvitation" class="gold-button hidden">
+          <span>ABRIR INVITACIÓN</span>
+          <span class="arrow">↓</span>
+        </button>
+
+        <!-- Formulario manual (Oculto brevemente mientras carga la base) -->
+        <div id="codeForm" class="code-form hidden">
+          <input type="text" id="codigoInput" placeholder="INGRESA TU CÓDIGO" autocomplete="off">
+          <button id="btnVerificar" class="outline-button">VERIFICAR</button>
+          <p id="msjError" class="error-text hidden">Código no válido. Intenta de nuevo.</p>
+        </div>
+      </div>
+      <!-- FIN ZONA DE INGRESO -->
+
     </div>
   </section>
 
