@@ -183,6 +183,48 @@ h1, h2, h3 {
   font-size: 1rem;
 }
 
+/* FORMULARIO DE CÓDIGO MANUAL */
+
+.code-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.code-form input {
+  width: 100%;
+  max-width: 260px;
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+.code-form input:focus {
+  border-color: var(--gold);
+}
+
+.code-form input::placeholder {
+  color: #6a6e7e;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+}
+
+.error-text {
+  color: #ff6b6b;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
 /* CONTENIDO */
 
 .invitation {
