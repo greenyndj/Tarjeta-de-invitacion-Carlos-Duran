@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080b16">
+  <title>Invitación de Grado | Carlos Andrés Durán Torres</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="stars" aria-hidden="true"></div>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+
+  <!-- PORTADA -->
+  <section id="cover" class="cover">
+    <div class="cover-content">
+      <div class="graduation-icon">🎓</div>
+      <p class="eyebrow">CELEBRACIÓN DE GRADO</p>
+
+      <div class="gold-line"></div>
+
+      <h1>Carlos Andrés<br><span>Durán Torres</span></h1>
+      <p class="degree">Ingeniero de Sistemas</p>
+
+      <div class="gold-line small"></div>
+
+      <p class="cover-message">
+        Un logro que marca el comienzo<br>
+        de una nueva etapa.
+      </p>
+
+      <button id="openInvitation" class="gold-button">
+        <span>ABRIR INVITACIÓN</span>
+        <span class="arrow">↓</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- INVITACIÓN -->
+  <main id="invitation" class="invitation hidden">
+
+    <section class="hero-section">
+      <div class="hero-inner">
+        <p class="eyebrow reveal">CON MUCHA ALEGRÍA</p>
+        <h2 class="reveal">Quiero compartir<br>este momento contigo</h2>
+
+        <div class="gold-line reveal"></div>
+
+        <p class="intro reveal">
+          La culminación de una etapa representa el comienzo
+          de muchos nuevos sueños. Por eso quiero celebrar
+          este logro junto a las personas especiales que han
+          sido parte del camino.
+        </p>
+
+        <div class="guest-card reveal">
+          <span class="guest-label">INVITADO ESPECIAL</span>
+          <h3 id="guestName">Invitado</h3>
+          <div class="guest-divider"></div>
+          <p><strong id="guestSeats">1</strong> cupo reservado</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="event-section">
+      <p class="eyebrow">EL GRAN DÍA</p>
+      <h2>Celebramos juntos</h2>
+
+      <div class="event-grid">
+        <article class="event-card">
+          <div class="event-icon">◷</div>
+          <span>FECHA</span>
+          <strong>12</strong>
+          <p>DE DICIEMBRE</p>
+        </article>
+
+        <article class="event-card">
+          <div class="event-icon">◌</div>
+          <span>HORA</span>
+          <strong>8:00</strong>
+          <p>DE LA NOCHE</p>
+        </article>
+
+        <article class="event-card location-card">
+          <div class="event-icon">⌖</div>
+          <span>LUGAR</span>
+          <strong>Míster Yin</strong>
+          <p>Cra. 45 No. 84-12</p>
+        </article>
+      </div>
+
+      <div class="envelope-box">
+        <div class="envelope-icon">✦</div>
+        <div>
+          <span>DETALLE DE LA CELEBRACIÓN</span>
+          <h3>Lluvia de sobres</h3>
+        </div>
+      </div>
+
+      <a
+        class="outline-button"
+        href="https://www.google.com/maps/search/?api=1&query=Restaurante+Mister+Yin+Cra+45+84-12"
+        target="_blank"
+        rel="noopener">
+        📍 VER UBICACIÓN
+      </a>
+    </section>
+
+    <section class="closing-section">
+      <div class="closing-card">
+        <p class="eyebrow">TE ESPERO</p>
+        <h2>Tu presencia hará<br>especial este día</h2>
+        <p>
+          Gracias por acompañarme en este momento
+          tan importante de mi vida.
+        </p>
+
+        <a id="whatsappButton" class="gold-button whatsapp" href="#" target="_blank" rel="noopener">
+          <span>CONFIRMAR ASISTENCIA</span>
+          <span>↗</span>
+        </a>
+      </div>
+
+      <footer>
+        <div class="mini-cap">🎓</div>
+        <p>CARLOS ANDRÉS DURÁN TORRES</p>
+        <small>Ingeniero de Sistemas</small>
+      </footer>
+    </section>
+
+  </main>
+
+  <div id="errorScreen" class="error-screen hidden">
+    <div class="error-card">
+      <div class="error-icon">🔐</div>
+      <h2>Invitación no encontrada</h2>
+      <p>
+        El código de invitación no es válido.
+        Verifica el enlace que recibiste.
+      </p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

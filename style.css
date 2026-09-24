@@ -1,0 +1,501 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #080b16;
+  --bg-soft: #0d1222;
+  --gold: #d9b56d;
+  --gold-light: #f1d99a;
+  --text: #f8f5ed;
+  --muted: #aaaebd;
+  --line: rgba(217, 181, 109, .38);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Montserrat", sans-serif;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(217,181,109,.10), transparent 32%),
+    linear-gradient(180deg, rgba(255,255,255,.015), transparent 45%);
+  z-index: -3;
+}
+
+.stars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2;
+  opacity: .45;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.7) 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(217,181,109,.55) 1px, transparent 1.5px);
+  background-size: 95px 95px, 145px 145px;
+  background-position: 15px 25px, 60px 80px;
+}
+
+.glow {
+  position: fixed;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  opacity: .10;
+  z-index: -1;
+}
+
+.glow-1 {
+  background: #c89b45;
+  top: -180px;
+  left: -180px;
+}
+
+.glow-2 {
+  background: #354b92;
+  bottom: -220px;
+  right: -180px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* PORTADA */
+
+.cover {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 40px 20px;
+  position: relative;
+}
+
+.cover-content {
+  width: min(680px, 100%);
+  animation: fadeUp 1.2s ease both;
+}
+
+.graduation-icon {
+  font-size: clamp(3rem, 10vw, 5.5rem);
+  margin-bottom: 16px;
+  filter: drop-shadow(0 10px 30px rgba(217,181,109,.2));
+  animation: float 4s ease-in-out infinite;
+}
+
+.eyebrow {
+  color: var(--gold-light);
+  letter-spacing: .28em;
+  font-size: .70rem;
+  font-weight: 600;
+}
+
+.gold-line {
+  width: 90px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 25px auto;
+}
+
+.gold-line.small {
+  width: 55px;
+  margin: 20px auto;
+}
+
+h1, h2, h3 {
+  font-family: "Cormorant Garamond", serif;
+}
+
+.cover h1 {
+  font-size: clamp(3rem, 9vw, 6.2rem);
+  line-height: .88;
+  font-weight: 500;
+  letter-spacing: -.03em;
+}
+
+.cover h1 span {
+  color: var(--gold-light);
+}
+
+.degree {
+  margin-top: 22px;
+  font-size: .78rem;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: #d6d8df;
+}
+
+.cover-message {
+  color: var(--muted);
+  font-size: .83rem;
+  line-height: 1.8;
+  margin-bottom: 35px;
+}
+
+.gold-button,
+.outline-button {
+  min-height: 54px;
+  padding: 0 26px;
+  border-radius: 100px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .13em;
+  cursor: pointer;
+  transition: .3s ease;
+}
+
+.gold-button {
+  color: #11131a;
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  border: 1px solid var(--gold-light);
+  box-shadow: 0 10px 35px rgba(217,181,109,.15);
+}
+
+.gold-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 45px rgba(217,181,109,.25);
+}
+
+.arrow {
+  font-size: 1rem;
+}
+
+/* CONTENIDO */
+
+.invitation {
+  animation: fadeIn .8s ease both;
+}
+
+.hero-section,
+.event-section,
+.closing-section {
+  width: min(920px, calc(100% - 34px));
+  margin: auto;
+}
+
+.hero-section {
+  padding: 90px 0 65px;
+  text-align: center;
+}
+
+.hero-section h2,
+.event-section h2,
+.closing-section h2 {
+  font-size: clamp(2.7rem, 7vw, 4.8rem);
+  line-height: .95;
+  font-weight: 500;
+  margin-top: 16px;
+}
+
+.intro {
+  max-width: 620px;
+  margin: 25px auto 0;
+  color: var(--muted);
+  line-height: 1.9;
+  font-size: .86rem;
+}
+
+.guest-card {
+  margin: 38px auto 0;
+  max-width: 560px;
+  padding: 30px 24px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.015));
+  box-shadow: 0 25px 80px rgba(0,0,0,.25);
+}
+
+.guest-label {
+  color: var(--gold-light);
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .25em;
+}
+
+.guest-card h3 {
+  font-size: clamp(2.2rem, 7vw, 3.7rem);
+  font-weight: 500;
+  margin: 12px 0;
+}
+
+.guest-divider {
+  height: 1px;
+  width: 45px;
+  background: var(--gold);
+  margin: auto;
+}
+
+.guest-card p {
+  margin-top: 15px;
+  color: var(--muted);
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+}
+
+.guest-card strong {
+  color: var(--gold-light);
+}
+
+/* EVENTO */
+
+.event-section {
+  padding: 70px 0 85px;
+  text-align: center;
+}
+
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 40px;
+}
+
+.event-card {
+  min-height: 210px;
+  padding: 28px 18px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.025);
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.event-icon {
+  color: var(--gold);
+  font-size: 1.6rem;
+  margin-bottom: 12px;
+}
+
+.event-card span,
+.envelope-box span {
+  color: var(--gold-light);
+  font-size: .60rem;
+  font-weight: 700;
+  letter-spacing: .20em;
+}
+
+.event-card strong {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2.8rem;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+.event-card p {
+  color: var(--muted);
+  font-size: .65rem;
+  letter-spacing: .10em;
+  margin-top: 2px;
+}
+
+.location-card strong {
+  font-size: 2rem;
+}
+
+.envelope-box {
+  max-width: 650px;
+  margin: 18px auto 28px;
+  padding: 23px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  text-align: left;
+}
+
+.envelope-icon {
+  color: var(--gold-light);
+  font-size: 1.7rem;
+}
+
+.envelope-box h3 {
+  margin-top: 5px;
+  font-size: 1.65rem;
+  font-weight: 500;
+}
+
+.outline-button {
+  color: var(--gold-light);
+  border: 1px solid var(--line);
+  background: transparent;
+}
+
+.outline-button:hover {
+  background: rgba(217,181,109,.08);
+  transform: translateY(-2px);
+}
+
+/* CIERRE */
+
+.closing-section {
+  padding: 20px 0 55px;
+  text-align: center;
+}
+
+.closing-card {
+  padding: clamp(40px, 7vw, 75px) 25px;
+  border-radius: 24px;
+  background:
+    linear-gradient(145deg, rgba(217,181,109,.08), rgba(255,255,255,.018));
+  border: 1px solid var(--line);
+}
+
+.closing-card > p:not(.eyebrow) {
+  max-width: 500px;
+  margin: 22px auto 30px;
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: .84rem;
+}
+
+.whatsapp {
+  margin-top: 5px;
+}
+
+footer {
+  padding-top: 55px;
+  color: var(--muted);
+}
+
+.mini-cap {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+footer p {
+  font-size: .65rem;
+  letter-spacing: .2em;
+}
+
+footer small {
+  display: block;
+  margin-top: 7px;
+  color: var(--gold);
+}
+
+/* ERROR */
+
+.error-screen {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 25px;
+  text-align: center;
+}
+
+.error-card {
+  max-width: 460px;
+  padding: 45px 30px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: rgba(255,255,255,.03);
+}
+
+.error-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.error-card h2 {
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+
+.error-card p {
+  margin-top: 15px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ANIMACIONES */
+
+.reveal {
+  animation: fadeUp .9s ease both;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 700px) {
+  .cover {
+    padding: 30px 18px;
+  }
+
+  .cover h1 {
+    font-size: clamp(3rem, 14vw, 4.6rem);
+  }
+
+  .event-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .event-card {
+    min-height: 160px;
+  }
+
+  .hero-section {
+    padding-top: 70px;
+  }
+
+  .envelope-box {
+    text-align: center;
+  }
+
+  .envelope-icon {
+    display: none;
+  }
+
+  .gold-button,
+  .outline-button {
+    width: 100%;
+    max-width: 330px;
+  }
+}
