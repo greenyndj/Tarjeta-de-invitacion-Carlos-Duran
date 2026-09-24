@@ -1,9 +1,8 @@
 // ==========================================
 // INVITACIÓN DE GRADO - VERSIÓN DINÁMICA
-// Conectada a CSV local en GitHub
+// Con ingreso manual y lectura de CSV local
 // ==========================================
 
-// Ruta del archivo CSV alojado en el mismo repositorio
 const csvPath = "invitados.csv";
 
 const cover = document.getElementById("cover");
@@ -14,61 +13,86 @@ const guestName = document.getElementById("guestName");
 const guestSeats = document.getElementById("guestSeats");
 const whatsappButton = document.getElementById("whatsappButton");
 
-// Obtener el código desde la URL (Ej: ?codigo=GRD001)
+// Elementos del formulario manual
+const codeForm = document.getElementById("codeForm");
+const codigoInput = document.getElementById("codigoInput");
+const btnVerificar = document.getElementById("btnVerificar");
+const msjError = document.getElementById("msjError");
+
+let baseDeDatos = [];
+
+// Obtener el código desde la URL si existe (Ej: ?codigo=GRD001)
 const params = new URLSearchParams(window.location.search);
-const codigo = params.get("codigo");
+const codigoEnUrl = params.get("codigo");
 
-// Cambiar estado del botón mientras carga la base de datos
-openButton.style.opacity = "0.6";
-openButton.style.pointerEvents = "none";
-
-async function cargarBaseDeDatos() {
-  if (!codigo) {
-    mostrarError();
-    return;
-  }
-
-  // Descargar y leer el CSV local usando PapaParse
-  Papa.parse(csvPath, {
-    download: true,
-    header: true, // Usa la primera fila como nombres de columna
-    complete: function(results) {
-      const invitados = results.data;
-      
-      // Buscar el invitado que coincida con el código de la URL
-      const invitadoEncontrado = invitados.find(
-        fila => fila.Codigo && fila.Codigo.toUpperCase() === codigo.toUpperCase()
-      );
-
-      if (invitadoEncontrado) {
-        configurarInvitacion(invitadoEncontrado);
-      } else {
-        mostrarError();
-      }
-    },
-    error: function(err) {
-      console.error("Error al cargar la base de datos:", err);
-      mostrarError();
+// 1. Cargar el CSV al abrir la página
+Papa.parse(csvPath, {
+  download: true,
+  header: true,
+  complete: function(results) {
+    baseDeDatos = results.data;
+    
+    if (codigoEnUrl) {
+      verificarCodigo(codigoEnUrl, true);
+    } else {
+      // Si no hay código en la URL, mostrar el formulario para ingresarlo
+      codeForm.classList.remove("hidden");
     }
-  });
+  },
+  error: function(err) {
+    console.error("Error al cargar la base de datos:", err);
+  }
+});
+
+// 2. Función para buscar el código
+function verificarCodigo(codigoIngresado, vieneDeUrl = false) {
+  const invitadoEncontrado = baseDeDatos.find(
+    fila => fila.Codigo && fila.Codigo.toUpperCase() === codigoIngresado.toUpperCase()
+  );
+
+  if (invitadoEncontrado) {
+    // Éxito: Ocultar formulario, mostrar botón de abrir y configurar datos
+    msjError.classList.add("hidden");
+    codeForm.classList.add("hidden");
+    openButton.classList.remove("hidden");
+    configurarInvitacion(invitadoEncontrado);
+  } else {
+    // Error
+    if (vieneDeUrl) {
+      mostrarError(); // Pantalla completa de error
+    } else {
+      msjError.classList.remove("hidden"); // Mostrar texto rojo
+    }
+  }
 }
 
+// 3. Evento botón verificar manual
+btnVerificar.addEventListener("click", () => {
+  const valorInput = codigoInput.value.trim();
+  if (valorInput !== "") {
+    verificarCodigo(valorInput);
+  }
+});
+
+// 4. Permitir verificar con "Enter"
+codigoInput.addEventListener("keypress", function (e) {
+  if (e.key === "Enter") {
+    const valorInput = codigoInput.value.trim();
+    if (valorInput !== "") {
+      verificarCodigo(valorInput);
+    }
+  }
+});
+
 function configurarInvitacion(invitado) {
-  // Rellenar los datos en el HTML
   guestName.textContent = invitado.Nombre;
   guestSeats.textContent = invitado.Cupos;
 
-  // Preparar el mensaje de WhatsApp automático
   const numeroWhatsApp = "573184374039";
   const mensaje = encodeURIComponent(
     `Hola Carlos, soy ${invitado.Nombre}. Confirmo mi asistencia a tu celebración de grado. Tengo ${invitado.Cupos} cupo(s) reservado(s). 🎓`
   );
   whatsappButton.href = `https://wa.me/${numeroWhatsApp}?text=${mensaje}`;
-
-  // Habilitar el botón de la portada para que puedan entrar
-  openButton.style.opacity = "1";
-  openButton.style.pointerEvents = "auto";
-  openButton.querySelector("span").textContent = "ABRIR INVITACIÓN";
 }
 
 function mostrarError() {
@@ -76,16 +100,9 @@ function mostrarError() {
   errorScreen.classList.remove("hidden");
 }
 
-// Evento para abrir la invitación
+// Evento abrir invitación (Scroll)
 openButton.addEventListener("click", () => {
   cover.classList.add("hidden");
   invitation.classList.remove("hidden");
-
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+  window.scrollTo({ top: 0, behavior: "smooth" });
 });
-
-// Iniciar el proceso al cargar la página
-cargarBaseDeDatos();
