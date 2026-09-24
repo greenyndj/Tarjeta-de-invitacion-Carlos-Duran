@@ -84,6 +84,7 @@
       <p class="eyebrow">EL GRAN DÍA</p>
       <h2>Celebramos juntos</h2>
 
+      <!-- Fecha y Hora (2 columnas) -->
       <div class="event-grid">
         <article class="event-card">
           <div class="event-icon">◷</div>
@@ -98,13 +99,28 @@
           <strong>8:00</strong>
           <p>DE LA NOCHE</p>
         </article>
+      </div>
 
-        <article class="event-card location-card">
+      <!-- Caja contenedora del lugar y el mapa -->
+      <div class="location-box">
+        <div class="location-info">
           <div class="event-icon">⌖</div>
           <span>LUGAR</span>
           <strong>Míster Yin</strong>
-          <p>Cra. 45 No. 84-12</p>
-        </article>
+          <p>Cra. 45 No. 84-12, Barranquilla</p>
+          <a class="outline-button small-btn" href="https://www.google.com/maps/search/?api=1&query=Restaurante+Mister+Yin+Cra+45+84-12" target="_blank" rel="noopener">
+            📍 CÓMO LLEGAR
+          </a>
+        </div>
+        <div class="location-map">
+          <!-- El iframe del mapa carga automáticamente la dirección -->
+          <iframe 
+            src="https://maps.google.com/maps?q=Restaurante+Mister+Yin+Cra+45+84-12+Barranquilla&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
       </div>
 
       <div class="envelope-box">
@@ -114,14 +130,6 @@
           <h3>Lluvia de sobres</h3>
         </div>
       </div>
-
-      <a
-        class="outline-button"
-        href="https://www.google.com/maps/search/?api=1&query=Restaurante+Mister+Yin+Cra+45+84-12"
-        target="_blank"
-        rel="noopener">
-        📍 VER UBICACIÓN
-      </a>
     </section>
 
     <section class="closing-section">
