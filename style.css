@@ -311,7 +311,7 @@ h1, h2, h3 {
 
 .event-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 15px;
   margin-top: 40px;
 }
@@ -356,8 +356,66 @@ h1, h2, h3 {
   margin-top: 2px;
 }
 
-.location-card strong {
-  font-size: 2rem;
+/* NUEVA CAJA DE LUGAR Y MAPA */
+
+.location-box {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.025);
+  border-radius: 18px;
+  overflow: hidden;
+  text-align: left;
+}
+
+.location-info {
+  flex: 1;
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.location-info span {
+  color: var(--gold-light);
+  font-size: .60rem;
+  font-weight: 700;
+  letter-spacing: .20em;
+  margin-bottom: 8px;
+}
+
+.location-info strong {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 2.4rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.location-info p {
+  color: var(--muted);
+  font-size: .80rem;
+  margin-top: 8px;
+  margin-bottom: 25px;
+}
+
+.small-btn {
+  min-height: 44px;
+  padding: 0 20px;
+  font-size: .65rem;
+}
+
+.location-map {
+  flex: 1.2;
+  min-height: 250px;
+}
+
+.location-map iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  filter: invert(90%) hue-rotate(180deg) brightness(85%) contrast(85%);
 }
 
 .envelope-box {
@@ -539,5 +597,20 @@ footer small {
   .outline-button {
     width: 100%;
     max-width: 330px;
+  }
+  
+  .location-box {
+    flex-direction: column;
+  }
+
+  .location-info {
+    align-items: center;
+    text-align: center;
+    padding: 30px 20px;
+  }
+
+  .location-map {
+    height: 250px;
+    flex: none;
   }
 }
