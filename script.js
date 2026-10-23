@@ -88,7 +88,7 @@ function configurarInvitacion(invitado) {
   guestName.textContent = invitado.Nombre;
   guestSeats.textContent = invitado.Cupos;
 
-  const numeroWhatsApp = "573184374039";
+  const numeroWhatsApp = "573164135674";
   const mensaje = encodeURIComponent(
     `Hola Carlos, soy ${invitado.Nombre}. Confirmo mi asistencia a tu celebración de grado. Tengo ${invitado.Cupos} cupo(s) reservado(s). 🎓`
   );
